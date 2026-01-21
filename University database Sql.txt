@@ -1,0 +1,201 @@
+# 1. UNIVERSITY TABLE
+
+CREATE TABLE UNIVERSITY(
+university_id INT PRIMARY KEY, 
+name VARCHAR(100) NOT NULL);
+
+#university_id -> variable
+#INT -> Datatype
+#PRIMARY KEY -> Constraint ::: (Not Null, Unique, Stable, Relation)
+
+# Inserting 7 rows
+INSERT INTO UNIVERSITY(university_id, name) VALUES (1, 'SIT');
+INSERT INTO UNIVERSITY(university_id, name) VALUES (2, 'IIT');
+INSERT INTO UNIVERSITY(university_id, name) VALUES (3, 'NIT');
+INSERT INTO UNIVERSITY(university_id, name) VALUES (4, 'VIT');
+INSERT INTO UNIVERSITY(university_id, name) VALUES (5, 'VNIT');
+INSERT INTO UNIVERSITY(university_id, name) VALUES (6, 'MIT');
+INSERT INTO UNIVERSITY(university_id, name) VALUES (7, 'JNU');
+
+
+
+# 2. DEPARTMENT TABLE
+
+CREATE TABLE DEPARTMENT(
+dept_id INT PRIMARY KEY, 
+name VARCHAR(50) NOT NULL, 
+building VARCHAR(50), 
+budget DECIMAL(12,2), 
+university_id INT, 
+FOREIGN KEY(university_id) REFERENCES UNIVERSITY(university_id));
+
+#FOREIGN KEY -> Constraint ::: (Null, Not Unique, Not Stable)
+
+# Inserting 7 rows
+INSERT INTO DEPARTMENT(dept_id, name, building, budget, university_id) VALUES(1, 'Computer Science', 'Taylor', 100000, 1);
+INSERT INTO DEPARTMENT(dept_id, name, building, budget, university_id) VALUES(2, 'Mathematics', 'Watson', 90000, 1);
+INSERT INTO DEPARTMENT(dept_id, name, building, budget, university_id) VALUES(3, 'Physics', 'Newton', 95000, 2);
+INSERT INTO DEPARTMENT(dept_id, name, building, budget, university_id) VALUES(4, 'Chemistry', 'Thomas', 80000, 2);
+INSERT INTO DEPARTMENT(dept_id, name, building, budget, university_id) VALUES(5, 'English', 'Robin', 85000, 3);
+INSERT INTO DEPARTMENT(dept_id, name, building, budget, university_id) VALUES(6, 'Biology', 'Watson', 70000, 4);
+INSERT INTO DEPARTMENT(dept_id, name, building, budget, university_id) VALUES(7, 'History', 'Newton', 60000, 5);
+
+
+# 3. INSTRUCTOR TABLE
+
+CREATE TABLE INSTRUCTOR(
+instructor_id INT PRIMARY KEY, 
+name VARCHAR(50) NOT NULL, 
+dept_id INT, 
+is_hod CHAR(1) DEFAULT 'N' CHECK (is_hod IN ('Y','N')), 
+salary DECIMAL(10,2), 
+CONSTRAINT fk_instructor_dept FOREIGN KEY (dept_id) REFERENCES DEPARTMENT(dept_id));
+
+# Inserting 7 rows
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(1, 'John Doe', 1, 'Y', 80000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(2, 'Jane Smith', 2, 'N', 75000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(3, 'Mark Lee', 3, 'N', 72000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(4, 'Emily Clark', 4, 'Y', 80000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(5, 'David Brown', 5, 'N', 70000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(6, 'Lisa Green', 6, 'N', 68000);
+INSERT INTO INSTRUCTOR(instructor_id, name, dept_id, is_hod, salary) VALUES(7, 'Tom White', 7, 'Y', 82000);
+
+
+
+# 4. COURSE TABLE
+
+CREATE TABLE COURSE(
+course_id VARCHAR(8) PRIMARY KEY, 
+title VARCHAR(100) NOT NULL, 
+dept_id INT, 
+credits INT, 
+FOREIGN KEY(dept_id) REFERENCES DEPARTMENT(dept_id));
+
+# Inserting 7 rows
+INSERT INTO COURSE(course_id, title, dept_id, credits) VALUES('CS101', 'Intro to CS', 1, 4);
+INSERT INTO COURSE(course_id, title, dept_id, credits) VALUES('MATH101', 'Calculus I', 2, 3);
+INSERT INTO COURSE(course_id, title, dept_id, credits) VALUES('PHY101', 'Physics I', 3, 4);
+INSERT INTO COURSE(course_id, title, dept_id, credits) VALUES('CHEM101', 'Chemistry I', 4, 3);
+INSERT INTO COURSE(course_id, title, dept_id, credits) VALUES('ENG101', 'English Literature', 5, 3);
+INSERT INTO COURSE(course_id, title, dept_id, credits) VALUES('BIO101', 'Biology Basics', 6, 4);
+INSERT INTO COURSE(course_id, title, dept_id, credits) VALUES('HIST101', 'World History', 7, 3);
+
+
+
+# 5. SECTION TABLE
+
+CREATE TABLE SECTION(
+section_id INT PRIMARY KEY, 
+course_id VARCHAR(8), 
+sec_id INT, 
+semester VARCHAR(6), 
+year INT, 
+building VARCHAR(50), 
+room_number VARCHAR(10), 
+time_slot_id VARCHAR(4), 
+FOREIGN KEY(course_id) REFERENCES COURSE(course_id));
+
+# Inserting 7 rows
+INSERT INTO SECTION(section_id, course_id, sec_id, semester, year, building, room_number, time_slot_id) VALUES(1, 'CS101', 1, 'FALL', 2023, 'Taylor', '3128', 'A');
+INSERT INTO SECTION(section_id, course_id, sec_id, semester, year, building, room_number, time_slot_id) VALUES(2, 'MATH101', 1, 'FALL', 2023, 'Watson', '2230', 'B');
+INSERT INTO SECTION(section_id, course_id, sec_id, semester, year, building, room_number, time_slot_id) VALUES(3, 'PHY101', 1, 'FALL', 2023, 'Newton', '1320', 'C');
+INSERT INTO SECTION(section_id, course_id, sec_id, semester, year, building, room_number, time_slot_id) VALUES(4, 'CHEM101', 1, 'FALL', 2023, 'Thomas', '1101', 'D');
+INSERT INTO SECTION(section_id, course_id, sec_id, semester, year, building, room_number, time_slot_id) VALUES(5, 'ENG101', 1, 'FALL', 2023, 'Robin', '101', 'E');
+INSERT INTO SECTION(section_id, course_id, sec_id, semester, year, building, room_number, time_slot_id) VALUES(6, 'BIO101', 1, 'FALL', 2023, 'Watson', '2245', 'F');
+INSERT INTO SECTION(section_id, course_id, sec_id, semester, year, building, room_number, time_slot_id) VALUES(7, 'HIST101', 1, 'FALL', 2023, 'Newton', '1310', 'G');
+
+
+
+# 6. TEACHES TABLE
+
+CREATE TABLE TEACHES(
+instructor_id INT,
+section_id INT, 
+PRIMARY KEY(instructor_id, section_id), 
+FOREIGN KEY (instructor_id) REFERENCES INSTRUCTOR(instructor_id), 
+FOREIGN KEY(section_id) REFERENCES SECTION(section_id));
+
+# Inserting 7 rows
+INSERT INTO TEACHES(instructor_id, section_id) VALUES(1,1);
+INSERT INTO TEACHES(instructor_id, section_id) VALUES(2,2);
+INSERT INTO TEACHES(instructor_id, section_id) VALUES(3,3);
+INSERT INTO TEACHES(instructor_id, section_id) VALUES(4,4);
+INSERT INTO TEACHES(instructor_id, section_id) VALUES(5,5);
+INSERT INTO TEACHES(instructor_id, section_id) VALUES(6,6);
+INSERT INTO TEACHES(instructor_id, section_id) VALUES(7,7);
+
+
+
+# 7. STUDENT TABLE
+
+CREATE TABLE STUDENT(
+student_id INT PRIMARY KEY,
+name VARCHAR(50) NOT NULL,
+tot_cred INT);
+
+# Inserting 7 rows
+INSERT INTO STUDENT(student_id, name, tot_cred) VALUES(1, 'Mike Johnson', 60);
+INSERT INTO STUDENT(student_id, name, tot_cred) VALUES(2, 'Sarah Lee', 45);
+INSERT INTO STUDENT(student_id, name, tot_cred) VALUES(3, 'Tom Brown', 30);
+INSERT INTO STUDENT(student_id, name, tot_cred) VALUES(4, 'Emily Davis', 75);
+INSERT INTO STUDENT(student_id, name, tot_cred) VALUES(5, 'David Wilson', 90);
+INSERT INTO STUDENT(student_id, name, tot_cred) VALUES(6, 'Lisa Anderson', 15);
+INSERT INTO STUDENT(student_id, name, tot_cred) VALUES(7, 'Anna White', 50);
+
+
+# 8. TAKES TABLE
+
+CREATE TABLE TAKES(
+student_id INT, 
+section_id INT, 
+grade VARCHAR(2),
+PRIMARY KEY(student_id, section_id),
+FOREIGN KEY(student_id) REFERENCES STUDENT(student_id),
+FOREIGN KEY(section_id) REFERENCES SECTION(section_id));
+
+# Inserting 7 rows
+INSERT INTO TAKES(student_id, section_id, grade) VALUES(1,1,'A');
+INSERT INTO TAKES(student_id, section_id, grade) VALUES(1,3,'B');
+INSERT INTO TAKES(student_id, section_id, grade) VALUES(2,2,'A');
+INSERT INTO TAKES(student_id, section_id, grade) VALUES(2,4,'B');
+INSERT INTO TAKES(student_id, section_id, grade) VALUES(3,1,'B');
+INSERT INTO TAKES(student_id, section_id, grade) VALUES(3,5,'A');
+INSERT INTO TAKES(student_id, section_id, grade) VALUES(4,2,'A');
+
+
+
+# 9. TIME_SLOT TABLE
+
+CREATE TABLE TIME_SLOT(
+time_slot_id VARCHAR(4) PRIMARY KEY,
+day CHAR(1),
+start_time TIME,
+end_time TIME);
+
+# Inserting 7 rows
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('A','M','09:00','10:30');
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('B','T','10:30','12:00');
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('C','W','12:00','13:30');
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('D','R','13:30','15:00');
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('E','F','15:00','16:30');
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('F','M','16:30','18:00');
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('G','T','18:00','19:30');
+
+
+
+# 10. CLASSROOM TABLE
+
+CREATE TABLE CLASSROOM(
+building VARCHAR(50),
+room_number VARCHAR(10),
+capacity INT,
+PRIMARY KEY (building, room_number));
+
+# Inserting 7 rows
+INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Taylor', '3128', 50);
+INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Taylor', '3114', 40);
+INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Watson', '2230', 60);
+INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Watson', '2245', 45);
+INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Newton', '1320', 55);
+INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Newton', '1310', 50);
+INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Thomas', '1101', 35);
