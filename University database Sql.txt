@@ -1,3 +1,4 @@
+
 # 1. UNIVERSITY TABLE
 
 CREATE TABLE UNIVERSITY(
@@ -169,17 +170,17 @@ INSERT INTO TAKES(student_id, section_id, grade) VALUES(4,2,'A');
 CREATE TABLE TIME_SLOT(
 time_slot_id VARCHAR(4) PRIMARY KEY,
 day CHAR(1),
-start_time TIME,
-end_time TIME);
+start_time DATE,
+end_time DATE);
 
 # Inserting 7 rows
-INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('A','M','09:00','10:30');
-INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('B','T','10:30','12:00');
-INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('C','W','12:00','13:30');
-INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('D','R','13:30','15:00');
-INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('E','F','15:00','16:30');
-INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('F','M','16:30','18:00');
-INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('G','T','18:00','19:30');
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('A','M',TO_DATE('09:00', 'HH24:MI'),TO_DATE('10:30','HH24:MI'));
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('B','T',TO_DATE('10:30', 'HH24:MI'),TO_DATE('12:00','HH24:MI'));
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('C','W',TO_DATE('12:00', 'HH24:MI'),TO_DATE('13:30','HH24:MI'));
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('D','R',TO_DATE('13:30', 'HH24:MI'),TO_DATE('15:00','HH24:MI'));
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('E','F',TO_DATE('15:00', 'HH24:MI'),TO_DATE('16:30','HH24:MI'));
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('F','M',TO_DATE('16:30', 'HH24:MI'),TO_DATE('18:00','HH24:MI'));
+INSERT INTO TIME_SLOT(time_slot_id, day, start_time, end_time) VALUES('G','T',TO_DATE('18:00', 'HH24:MI'),TO_DATE('19:30','HH24:MI'));
 
 
 
