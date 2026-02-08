@@ -202,8 +202,9 @@ INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Newton', '1310', 
 INSERT INTO CLASSROOM(building, room_number, capacity) VALUES('Thomas', '1101', 35);
 
 ---------------------------------------------------------------------------------------
-
 Date = 27/01/26
+---------------------------------------------------------------------------------------
+
 # Some basic queries and updates
 
 # Shows all the tables present in the current database
@@ -254,3 +255,247 @@ INSERT INTO COURSE VALUES ('CS-001','Weekly Seminar',1,1);
 
 # Reduces the size of the title column in course table
 ALTER TABLE course MODIFY title VARCHAR2(30);
+
+
+---------------------------------------------------------------------------------------
+Date = 02/02/26
+---------------------------------------------------------------------------------------
+
+# Display all tables
+SELECT * FROM tab;
+
+# Create sequence for student table
+CREATE SEQUENCE st_sq
+START WITH 211
+INCREMENT BY 1;
+
+# Insert record using sequence
+INSERT INTO st_info (prn, name, m1, m2, m3)
+VALUES (st_sq.NEXTVAL, 'xa1011', 12, 13, 15);
+
+---------------------------------------------------------------------------------------
+
+# Creating sequence for employee table
+CREATE SEQUENCE emp_sq
+START WITH 1
+INCREMENT BY 1;
+
+# Creating employee table
+CREATE TABLE emp(
+    emp_id INT PRIMARY KEY,
+    name VARCHAR2(20)
+);
+
+# Inserting employee records
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Kanak');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Namu');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Tanay');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Tanu');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Mahima');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Savi');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Saana');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Nitya');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Reshal');
+INSERT INTO emp VALUES (emp_sq.NEXTVAL, 'Asha');
+
+---------------------------------------------------------------------------------------
+
+# Adding new columns
+ALTER TABLE emp ADD salary NUMBER;
+ALTER TABLE emp ADD mobile NUMBER;
+
+# Insert record with mobile number
+INSERT INTO emp(emp_id, name, mobile)
+VALUES (emp_sq.NEXTVAL, 'abc', 9177345621);
+
+# Updating mobile numbers
+UPDATE emp
+SET mobile = 915543455
+WHERE emp_id < 6;
+
+---------------------------------------------------------------------------------------
+
+# Truncate emp table
+TRUNCATE TABLE emp;
+
+# Drop sequence
+DROP SEQUENCE emp_sq;
+
+# Trying to create the same sequence again
+CREATE SEQUENCE emp_sq
+START WITH 1
+INCREMENT BY 1;
+-- ERROR:
+-- ORA-00955: name is already used by an existing object
+
+# Creating a new sequence with different name
+CREATE SEQUENCE emp_s
+START WITH 1
+INCREMENT BY 1;
+
+# Insert records using new sequence
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Kanak', 9999898);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Namu', 9999999);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Tanay', 999888);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Tanu', 99887676);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Mahima', 734646454);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Savi', 353445667);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Saana', 857453536);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Nitya', 572367478);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Reshal', 486767823);
+INSERT INTO emp VALUES (emp_s.NEXTVAL, 'Asha', 4378434334);
+
+
+---------------------------------------------------------------------------------------
+Date = 03/02/26
+---------------------------------------------------------------------------------------
+
+# Trying to add NOT NULL column to existing table
+ALTER TABLE emp ADD pincode NUMBER NOT NULL;
+-- ERROR:
+-- ORA-01758: table must be empty to add mandatory (NOT NULL) column
+
+---------------------------------------------------------------------------------------
+
+# Truncate table to fix error
+TRUNCATE TABLE emp;
+
+# Drop and recreate emp table with NOT NULL constraint
+DROP TABLE emp;
+
+CREATE TABLE emp(
+    emp_id INT PRIMARY KEY,
+    name VARCHAR2(20),
+    mobile NUMBER,
+    pincode NUMBER NOT NULL
+);
+
+# Create new sequence
+CREATE SEQUENCE emp_sqn
+START WITH 1
+INCREMENT BY 1;
+
+# Insert employee records
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Kanak', 9999898, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Namu', 9999999, 440067);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Tanay', 999888, 440009);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Tanu', 99887676, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Mahima', 734646454, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Savi', 353445667, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Saana', 857453536, 400004);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Nitya', 57236747844, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Reshal', 486767823, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Asha', 4378434334, 440000);
+
+---------------------------------------------------------------------------------------
+-- JOINS
+---------------------------------------------------------------------------------------
+
+# Instructor with Department
+SELECT i.instructor_id,
+       i.name,
+       i.salary,
+       d.name AS department_name
+FROM instructor i
+JOIN department d
+ON i.dept_id = d.dept_id;
+
+---------------------------------------------------------------------------------------
+
+# Instructor teaching Course
+SELECT i.name AS instructor_name,
+       c.title AS course_title
+FROM instructor i
+JOIN teaches t ON i.instructor_id = t.instructor_id
+JOIN section s ON t.section_id = s.section_id
+JOIN course c ON s.course_id = c.course_id;
+---------------------------------------------------------------------------------------
+Date = 03/02/26
+---------------------------------------------------------------------------------------
+
+# Trying to add NOT NULL column to existing table
+ALTER TABLE emp ADD pincode NUMBER NOT NULL;
+-- ERROR:
+-- ORA-01758: table must be empty to add mandatory (NOT NULL) column
+
+---------------------------------------------------------------------------------------
+
+# Truncate table to fix error
+TRUNCATE TABLE emp;
+
+# Drop and recreate emp table with NOT NULL constraint
+DROP TABLE emp;
+
+CREATE TABLE emp(
+    emp_id INT PRIMARY KEY,
+    name VARCHAR2(20),
+    mobile NUMBER,
+    pincode NUMBER NOT NULL
+);
+
+# Create new sequence
+CREATE SEQUENCE emp_sqn
+START WITH 1
+INCREMENT BY 1;
+
+# Insert employee records
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Kanak', 9999898, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Namu', 9999999, 440067);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Tanay', 999888, 440009);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Tanu', 99887676, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Mahima', 734646454, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Savi', 353445667, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Saana', 857453536, 400004);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Nitya', 57236747844, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Reshal', 486767823, 440000);
+INSERT INTO emp VALUES (emp_sqn.NEXTVAL, 'Asha', 4378434334, 440000);
+
+---------------------------------------------------------------------------------------
+-- JOINS
+---------------------------------------------------------------------------------------
+
+# Instructor with Department
+SELECT i.instructor_id,
+       i.name,
+       i.salary,
+       d.name AS department_name
+FROM instructor i
+JOIN department d
+ON i.dept_id = d.dept_id;
+
+---------------------------------------------------------------------------------------
+
+# Instructor teaching Course
+SELECT i.name AS instructor_name,
+       c.title AS course_title
+FROM instructor i
+JOIN teaches t ON i.instructor_id = t.instructor_id
+JOIN section s ON t.section_id = s.section_id
+JOIN course c ON s.course_id = c.course_id;
+
+---------------------------------------------------------------------------------------
+
+# Student, Course and Grade
+SELECT st.name AS student_name,
+       c.title AS course_title,
+       tk.grade
+FROM student st
+JOIN takes tk ON st.student_id = tk.student_id
+JOIN section s ON tk.section_id = s.section_id
+JOIN course c ON s.course_id = c.course_id;
+
+---------------------------------------------------------------------------------------
+-- END OF FILE
+---------------------------------------------------------------------------------------
+
+
+# Student, Course and Grade
+SELECT st.name AS student_name,
+       c.title AS course_title,
+       tk.grade
+FROM student st
+JOIN takes tk ON st.student_id = tk.student_id
+JOIN section s ON tk.section_id = s.section_id
+JOIN course c ON s.course_id = c.course_id;
+
+
