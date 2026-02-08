@@ -1,0 +1,97 @@
+------------------------------------------------------------------------------------
+Date = 03/02/2026
+------------------------------------------------------------------------------------
+
+
+# TO calculate average of the salary table
+
+# Incorrect attempt — cannot mix aggregate and non-aggregates without GROUP BY
+select i.instructor_id, i.name, i.salary, d.name, avg(i.salary) as avg_salary 
+from instructor i 
+join department d on i.dept_id = d.dept_id 
+where d.name = 'Computer Science';
+
+-- ERROR: ORA-00937: not a single-group group function
+
+
+# Correct way: Find the average salary of instructors in Computer Science department
+select avg(i.salary) as avg_salary 
+from instructor i 
+join department d on i.dept_id = d.dept_id 
+where d.name = 'Computer Science';
+
+
+# Another correct syntax
+select avg(salary) as avg_salary 
+from department d 
+join instructor i on d.dept_id = i.dept_id;
+
+
+# 2) Find the average salary in each department
+select d.name as dept_name, avg(i.salary) as avg_salary 
+from department d 
+join instructor i on d.dept_id = i.dept_id 
+group by d.name;
+
+
+# 3) What is the total salary of all teachers earning more than 30k
+select sum(salary) as total_salary 
+from instructor 
+where salary > 30000;
+
+
+# 4) Find all departments whose name contains the substring "sci", case-insensitive
+select * 
+from department 
+where lower(name) like '%sci%';
+
+
+# 5) Average salary of departments starting with 'Comput'
+select avg(i.salary) as avg_salary 
+from instructor i 
+join department d on i.dept_id = d.dept_id 
+where d.name like 'Comput%';
+
+
+# 6) Display length of instructor names
+
+select length(name) as total_length 
+from instructor;
+
+OUTPUT : 
+TOTAL_LENGTH
+------------
+           6
+           8
+          10
+           8
+          11
+          11
+          10
+           9
+
+# Display name with its length
+select name, length(name) as total_length 
+from instructor;
+
+OUTPUT :
+NAME                                               TOTAL_LENGTH
+-------------------------------------------------- ------------
+Ramesh                                                        6
+John Doe                                                      8
+Jane Smith                                                   10
+Mark Lee                                                      8
+Emily Clark                                                  11
+David Brown                                                  11
+Lisa Green                                                   10
+Tom White                                                     9
+
+
+# Sum of all instructor name lengths
+select sum(length(name)) as total_length 
+from instructor;
+
+OUTPUT : 
+TOTAL_LENGTH
+------------
+          73
