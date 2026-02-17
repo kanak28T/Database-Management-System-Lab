@@ -70,55 +70,153 @@ INSERT INTO Assignments (emp_id, proj_id, hours_worked) VALUES (5, 203, 35);
 INSERT INTO Assignments (emp_id, proj_id, hours_worked) VALUES (6, 204, 25);
 INSERT INTO Assignments (emp_id, proj_id, hours_worked) VALUES (7, 202, 45);
 
-We have to write comparative statements for this join  
+----------------------------------------------------------------------------------------------------------------------------
+DATE = 17/02/26
+----------------------------------------------------------------------------------------------------------------------------
 
 1)INNER JOIN
 Select e.emp_name, d.dept_name
 from employees e
 INNER JOIN departments1 d on e.dept_id = d.dept_id;
 
-EMP_NAME
---------------------------------------------------
-DEPT_NAME
---------------------------------------------------
-John
-Finance
+EMP_NAME                                           DEPT_NAME
+-------------------------------------------------- --------------------------------------------------
+John                                               Finance
+Alice                                              HR
+Robert                                             Finance
+Michael                                            IT
+Susan                                              HR
+Nancy                                              Marketing
+David                                              IT
+Laura                                              Finance
 
-Alice
-HR
-
-Robert
-Finance
-
-
-EMP_NAME
---------------------------------------------------
-DEPT_NAME
---------------------------------------------------
-Michael
-IT
-
-Susan
-HR
-
-Nancy
-Marketing
-
-
-EMP_NAME
---------------------------------------------------
-DEPT_NAME
---------------------------------------------------
-David
-IT
-
-Laura
-Finance
 
 
 2)LEFT JOIN
 
 Select e.emp_name, p.proj_name
 from employees e
-LEFT JOIN assignments a on e.dept_id = a.dept_id
+LEFT JOIN assignments a on e.emp_id = a.emp_id
 LEFT JOIN Projects p ON a.proj_id = p.proj_id;
+
+EMP_NAME                                           PROJ_NAME
+-------------------------------------------------- --------------------------------------------------
+Robert                                             Project A
+John                                               Project A
+David                                              Project B
+Michael                                            Project B
+Susan                                              Project C
+Alice                                              Project C
+Nancy                                              Project D
+Laura
+
+
+
+3)RIGHT JOIN 
+
+select p.proj_name, e.emp_name
+from projects p
+RIGHT JOIN Assignments a on p.proj_id = a.proj_id
+RIGHT JOIN Employees e ON a.emp_id = e.emp_id;
+
+
+PROJ_NAME                                          EMP_NAME
+-------------------------------------------------- --------------------------------------------------
+Project A                                          Robert
+Project A                                          John
+Project B                                          David
+Project B                                          Michael
+Project C                                          Susan
+Project C                                          Alice
+Project D                                          Nancy
+                                                   Laura
+
+
+
+4)FULL OUTER JOIN 
+
+Select e.emp_name, d.dept_name
+from employees e
+FULL OUTER JOIN Departments1 d on e.dept_id = d.dept_id;
+
+
+EMP_NAME                                           DEPT_NAME
+-------------------------------------------------- --------------------------------------------------
+John                                               Finance
+Alice                                              HR
+Robert                                             Finance
+Michael                                            IT
+Susan                                              HR
+Nancy                                              Marketing
+David                                              IT
+Laura                                              Finance
+
+
+
+5)SELF JOIN
+
+Select e.emp_name as Employee, m.emp_name as Manager
+from Employees e
+LEFT JOIN employees m on e.manager_id = m.emp_id;
+
+EMPLOYEE                                           MANAGER
+-------------------------------------------------- --------------------------------------------------
+Robert                                             John
+Alice                                              John
+Susan                                              Alice
+Laura                                              Robert
+David                                              Michael
+Nancy
+Michael
+John
+
+
+
+
+6)Cross JOIN
+
+Select e.emp_name, p.proj_name
+from employees e
+CROSS JOIN projects p;
+
+EMP_NAME                                           PROJ_NAME
+-------------------------------------------------- --------------------------------------------------
+John                                               Project A
+Alice                                              Project A
+Robert                                             Project A
+Michael                                            Project A
+Susan                                              Project A
+Nancy                                              Project A
+David                                              Project A
+Laura                                              Project A
+John                                               Project B
+Alice                                              Project B
+Robert                                             Project B
+
+EMP_NAME                                           PROJ_NAME
+-------------------------------------------------- --------------------------------------------------
+Michael                                            Project B
+Susan                                              Project B
+Nancy                                              Project B
+David                                              Project B
+Laura                                              Project B
+John                                               Project C
+Alice                                              Project C
+Robert                                             Project C
+Michael                                            Project C
+Susan                                              Project C
+Nancy                                              Project C
+
+EMP_NAME                                           PROJ_NAME
+-------------------------------------------------- --------------------------------------------------
+David                                              Project C
+Laura                                              Project C
+John                                               Project D
+Alice                                              Project D
+Robert                                             Project D
+Michael                                            Project D
+Susan                                              Project D
+Nancy                                              Project D
+David                                              Project D
+Laura                                              Project D
+
