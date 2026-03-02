@@ -1,6 +1,10 @@
-Date = 06/03/26
+EXP 7 – PL/SQL Control Structures 
+Date: 06/03/2026
 
-1)SUM OF 1st 10 NUMBERS  using WHILE loop 
+------------------------------------------------------------
+1) Sum of First 10 Numbers Using WHILE Loop
+------------------------------------------------------------
+
 CREATE OR REPLACE PROCEDURE SumFirst10Numbers_WhileLoop AS
     i NUMBER := 1;
     sum1 NUMBER := 0;
@@ -9,17 +13,22 @@ BEGIN
         sum1 := sum1 + i;
         i := i + 1;
     END LOOP;
+
     DBMS_OUTPUT.PUT_LINE('Sum of first 10 numbers using WHILE loop: ' || sum1);
 END;
+/
+
+SET SERVEROUTPUT ON;
+EXEC SumFirst10Numbers_WhileLoop;
+
+-- Output:
+-- Sum of first 10 numbers using WHILE loop: 55
+-- PL/SQL procedure successfully completed.
 
 
-Procedure created.
-
-SQL> EXEC SumFirst10Numbers_WhileLoop;
-Sum of first 10 numbers using WHILE loop: 55
-
-
-2)Sum of First 10 Even Numbers Using a FOR Loop
+------------------------------------------------------------
+2) Sum of First 10 Even Numbers Using FOR Loop
+------------------------------------------------------------
 
 CREATE OR REPLACE PROCEDURE SumFirst10EvenNumbers_ForLoop AS
     sum1 NUMBER := 0;
@@ -27,17 +36,21 @@ BEGIN
     FOR i IN 1..10 LOOP
         sum1 := sum1 + (2 * i);
     END LOOP;
+
     DBMS_OUTPUT.PUT_LINE('Sum of first 10 even numbers using FOR loop: ' || sum1);
 END;
 /
 
- EXEC SumFirst10EvenNumbers_ForLoop;
-Sum of first 10 even numbers using FOR loop: 110
+EXEC SumFirst10EvenNumbers_ForLoop;
 
-PL/SQL procedure successfully completed.
+-- Output:
+-- Sum of first 10 even numbers using FOR loop: 110
+-- PL/SQL procedure successfully completed.
 
 
-3)
+------------------------------------------------------------
+3) Student Result – Total, Percentage & Grade
+------------------------------------------------------------
 
 CREATE OR REPLACE PROCEDURE Sub_Avg (
     cn    IN INT,
@@ -69,27 +82,39 @@ BEGIN
 END;
 /
 
- EXEC Sub_Avg(80, 70, 75, 85);
-GRADE A
-PERCENTAGE IS 77.5
+EXEC Sub_Avg(80, 70, 75, 85);
 
-PL/SQL procedure successfully completed.
+-- Output:
+-- GRADE A
+-- PERCENTAGE IS 77.5
+-- PL/SQL procedure successfully completed.
 
 
-Table Creation
+------------------------------------------------------------
+4) Table Creation – route_header
+------------------------------------------------------------
+
 CREATE TABLE route_header (
     route_id NUMBER(5),
     origin VARCHAR2(20),
     destination VARCHAR2(20),
     fare NUMBER(7,2),
-    distance NUMBER(3),
+    distance NUMBER(5),
     capacity NUMBER(3)
 );
 
-Data Insertion
-INSERT INTO route_header VALUES (102, 'trichy', 'madurai', 33, 450, 56);
-INSERT INTO route_header VALUES (103, 'madurai', 'madras', 35, 250, 50);
-INSERT INTO route_header VALUES (104, 'madurai', 'madras', 35, 250, 50);
-INSERT INTO route_header VALUES (105, 'madurai', 'madras', 35, 250, 50);
+------------------------------------------------------------
+5) Data Insertion
+------------------------------------------------------------
 
+INSERT INTO route_header VALUES (102, 'trichy', 'madurai', 33, 450, 56);
+INSERT INTO route_header VALUES (103, 'madurai', 'madras', 30, 250, 50);
+INSERT INTO route_header VALUES (104, 'madurai', 'madras', 40, 270, 50);
+INSERT INTO route_header VALUES (105, 'madurai', 'madras', 25, 200, 50);
+
+------------------------------------------------------------
+6) Display Table Data
+------------------------------------------------------------
+
+SELECT * FROM route_header;
 
