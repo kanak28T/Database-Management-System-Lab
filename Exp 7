@@ -1,6 +1,6 @@
-1. Sum of First 10 Numbers Using a WHILE Loop
-Procedure Creation:
+Date = 06/03/26
 
+1)SUM OF 1st 10 NUMBERS  using WHILE loop 
 CREATE OR REPLACE PROCEDURE SumFirst10Numbers_WhileLoop AS
     i NUMBER := 1;
     sum1 NUMBER := 0;
@@ -11,10 +11,15 @@ BEGIN
     END LOOP;
     DBMS_OUTPUT.PUT_LINE('Sum of first 10 numbers using WHILE loop: ' || sum1);
 END;
-/
 
-2. Sum of First 10 Even Numbers Using a FOR Loop
-Procedure Creation:
+
+Procedure created.
+
+SQL> EXEC SumFirst10Numbers_WhileLoop;
+Sum of first 10 numbers using WHILE loop: 55
+
+
+2)Sum of First 10 Even Numbers Using a FOR Loop
 
 CREATE OR REPLACE PROCEDURE SumFirst10EvenNumbers_ForLoop AS
     sum1 NUMBER := 0;
@@ -26,27 +31,13 @@ BEGIN
 END;
 /
 
+ EXEC SumFirst10EvenNumbers_ForLoop;
+Sum of first 10 even numbers using FOR loop: 110
 
-Execution Example:
-
-Call the Procedures in PL/SQL Block:
-
-    BEGIN
-        SumFirst10Numbers_WhileLoop;
-    END;
-    /
-
-    BEGIN
-        SumFirst10EvenNumbers_ForLoop;
-    END;
-    /
-Directly in SQLPlus or a similar tool:
-
-EXEC SumFirst10Numbers_WhileLoop;
+PL/SQL procedure successfully completed.
 
 
-EXP 8
-
+3)
 
 CREATE OR REPLACE PROCEDURE Sub_Avg (
     cn    IN INT,
@@ -78,13 +69,11 @@ BEGIN
 END;
 /
 
-EXECUTION 
- BEGIN
-      Sub_Avg(80, 70, 75, 85);
-  END;
-  /
-OR
-EXEC Sub_Avg(80, 70, 75, 85);
+ EXEC Sub_Avg(80, 70, 75, 85);
+GRADE A
+PERCENTAGE IS 77.5
+
+PL/SQL procedure successfully completed.
 
 
 Table Creation
@@ -103,19 +92,4 @@ INSERT INTO route_header VALUES (103, 'madurai', 'madras', 35, 250, 50);
 INSERT INTO route_header VALUES (104, 'madurai', 'madras', 35, 250, 50);
 INSERT INTO route_header VALUES (105, 'madurai', 'madras', 35, 250, 50);
 
-Procedure
-CREATE OR REPLACE PROCEDURE router_header_proc1 (routeid route_header.route_id%type) AS
-  a NUMBER(7,2);
-  b NUMBER(4);
-BEGIN
-  SELECT fare, distance INTO a, b FROM route_header WHERE route_id = routeid;
 
-  IF b < 500 THEN
-    UPDATE route_header SET fare = 190.98 WHERE route_id = routeid;
-  ELSIF b BETWEEN 501 AND 1000 THEN
-    UPDATE route_header SET fare = 800.00 WHERE route_id = routeid;
-  ELSIF b > 1000 THEN
-    DBMS_OUTPUT.put_line('Sorry, distance is too large.');
-  END IF;
-END;
-/
