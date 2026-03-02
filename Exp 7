@@ -1,0 +1,121 @@
+1. Sum of First 10 Numbers Using a WHILE Loop
+Procedure Creation:
+
+CREATE OR REPLACE PROCEDURE SumFirst10Numbers_WhileLoop AS
+    i NUMBER := 1;
+    sum1 NUMBER := 0;
+BEGIN
+    WHILE i <= 10 LOOP
+        sum1 := sum1 + i;
+        i := i + 1;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('Sum of first 10 numbers using WHILE loop: ' || sum1);
+END;
+/
+
+2. Sum of First 10 Even Numbers Using a FOR Loop
+Procedure Creation:
+
+CREATE OR REPLACE PROCEDURE SumFirst10EvenNumbers_ForLoop AS
+    sum1 NUMBER := 0;
+BEGIN
+    FOR i IN 1..10 LOOP
+        sum1 := sum1 + (2 * i);
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('Sum of first 10 even numbers using FOR loop: ' || sum1);
+END;
+/
+
+
+Execution Example:
+
+Call the Procedures in PL/SQL Block:
+
+    BEGIN
+        SumFirst10Numbers_WhileLoop;
+    END;
+    /
+
+    BEGIN
+        SumFirst10EvenNumbers_ForLoop;
+    END;
+    /
+Directly in SQLPlus or a similar tool:
+
+EXEC SumFirst10Numbers_WhileLoop;
+
+
+EXP 8
+
+
+CREATE OR REPLACE PROCEDURE Sub_Avg (
+    cn    IN INT,
+    dbms  IN INT,
+    ifds  IN INT,
+    cmbs  IN INT
+) AS
+    total INT;
+    per   NUMBER(5,2);
+BEGIN
+    total := cn + dbms + ifds + cmbs;
+    per := (total / 400) * 100;
+
+    IF cn < 40 OR dbms < 40 OR ifds < 40 OR cmbs < 40 THEN
+        DBMS_OUTPUT.PUT_LINE('FAIL');
+    ELSE
+        IF per > 75 THEN
+            DBMS_OUTPUT.PUT_LINE('GRADE A');
+        ELSIF per > 65 AND per <= 75 THEN
+            DBMS_OUTPUT.PUT_LINE('GRADE B');
+        ELSIF per > 55 AND per <= 65 THEN
+            DBMS_OUTPUT.PUT_LINE('GRADE C');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('GRADE D');
+        END IF;
+
+        DBMS_OUTPUT.PUT_LINE('PERCENTAGE IS ' || per);
+    END IF;
+END;
+/
+
+EXECUTION 
+ BEGIN
+      Sub_Avg(80, 70, 75, 85);
+  END;
+  /
+OR
+EXEC Sub_Avg(80, 70, 75, 85);
+
+
+Table Creation
+CREATE TABLE route_header (
+    route_id NUMBER(5),
+    origin VARCHAR2(20),
+    destination VARCHAR2(20),
+    fare NUMBER(7,2),
+    distance NUMBER(3),
+    capacity NUMBER(3)
+);
+
+Data Insertion
+INSERT INTO route_header VALUES (102, 'trichy', 'madurai', 33, 450, 56);
+INSERT INTO route_header VALUES (103, 'madurai', 'madras', 35, 250, 50);
+INSERT INTO route_header VALUES (104, 'madurai', 'madras', 35, 250, 50);
+INSERT INTO route_header VALUES (105, 'madurai', 'madras', 35, 250, 50);
+
+Procedure
+CREATE OR REPLACE PROCEDURE router_header_proc1 (routeid route_header.route_id%type) AS
+  a NUMBER(7,2);
+  b NUMBER(4);
+BEGIN
+  SELECT fare, distance INTO a, b FROM route_header WHERE route_id = routeid;
+
+  IF b < 500 THEN
+    UPDATE route_header SET fare = 190.98 WHERE route_id = routeid;
+  ELSIF b BETWEEN 501 AND 1000 THEN
+    UPDATE route_header SET fare = 800.00 WHERE route_id = routeid;
+  ELSIF b > 1000 THEN
+    DBMS_OUTPUT.put_line('Sorry, distance is too large.');
+  END IF;
+END;
+/
