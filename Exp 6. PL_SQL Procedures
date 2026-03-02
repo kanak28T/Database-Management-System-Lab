@@ -141,14 +141,23 @@ BEGIN
 END;
 /
 
-VARIABLE a NUMBER;
-VARIABLE b NUMBER;
+SQL> Set ServerOutput ON;
+SQL> VARIABLE a NUMBER;
+SQL> VARIABLE b NUMBER;
 
-EXEC :a := 5;
-EXEC :b := 10;
+SQL> EXEC :a := 5;
 
-EXEC swap_1(:a, :b);
+---PL/SQL procedure successfully completed.
 
+SQL> EXEC :b := 10;
+
+---PL/SQL procedure successfully completed.
+
+SQL> EXEC swap_1(:a, :b);
+---Value of x: 10
+---Value of y: 5
+
+---PL/SQL procedure successfully completed.
 
 ------------------------------------------------------------
 8) Find Largest Among Three Numbers
@@ -172,3 +181,7 @@ END;
 /
 
 EXEC largest_3(10, 25, 15);
+
+---Largest number is: 25
+
+---PL/SQL procedure successfully completed.
