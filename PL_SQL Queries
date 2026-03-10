@@ -1,9 +1,15 @@
-EXP 7 – PL/SQL Control Structures 
-Date: 06/03/2026
+------------------------------------------------------------------------------------
+# PL/SQL PROCEDURES & CONTROL STRUCTURES
+# EXP 7, 8, 9
+# Date = 06/03/2026
+------------------------------------------------------------------------------------
 
-------------------------------------------------------------
-1) Sum of First 10 Numbers Using WHILE Loop
-------------------------------------------------------------
+
+# ------------------------------------------------
+# EXP 7 – SUM USING LOOPS
+# ------------------------------------------------
+
+# Procedure to calculate sum of first 10 numbers using WHILE loop
 
 CREATE OR REPLACE PROCEDURE SumFirst10Numbers_WhileLoop AS
     i NUMBER := 1;
@@ -21,14 +27,15 @@ END;
 SET SERVEROUTPUT ON;
 EXEC SumFirst10Numbers_WhileLoop;
 
--- Output:
--- Sum of first 10 numbers using WHILE loop: 55
--- PL/SQL procedure successfully completed.
+# OUTPUT
+# Sum of first 10 numbers using WHILE loop: 55
 
 
-------------------------------------------------------------
-2) Sum of First 10 Even Numbers Using FOR Loop
-------------------------------------------------------------
+# ------------------------------------------------
+# Sum of First 10 Even Numbers using FOR loop
+# ------------------------------------------------
+
+# Procedure to calculate sum of first 10 even numbers
 
 CREATE OR REPLACE PROCEDURE SumFirst10EvenNumbers_ForLoop AS
     sum1 NUMBER := 0;
@@ -43,14 +50,16 @@ END;
 
 EXEC SumFirst10EvenNumbers_ForLoop;
 
--- Output:
--- Sum of first 10 even numbers using FOR loop: 110
--- PL/SQL procedure successfully completed.
+# OUTPUT
+# Sum of first 10 even numbers using FOR loop: 110
 
 
-------------------------------------------------------------
-3) Student Result – Total, Percentage & Grade
-------------------------------------------------------------
+
+# ------------------------------------------------
+# EXP 8 – CONDITIONAL STATEMENTS
+# ------------------------------------------------
+
+# Procedure to calculate total marks, percentage and grade
 
 CREATE OR REPLACE PROCEDURE Sub_Avg (
     cn    IN INT,
@@ -82,17 +91,19 @@ BEGIN
 END;
 /
 
-EXEC Sub_Avg(80, 70, 75, 85);
+EXEC Sub_Avg(80,70,75,85);
 
--- Output:
--- GRADE A
--- PERCENTAGE IS 77.5
--- PL/SQL procedure successfully completed.
+# OUTPUT
+# GRADE A
+# PERCENTAGE IS 77.5
 
 
-------------------------------------------------------------
-4) Table Creation – route_header
-------------------------------------------------------------
+
+# ------------------------------------------------
+# EXP 9 – ROUTE HEADER TABLE
+# ------------------------------------------------
+
+# Creating table to store route details
 
 CREATE TABLE route_header (
     route_id NUMBER(5),
@@ -103,18 +114,15 @@ CREATE TABLE route_header (
     capacity NUMBER(3)
 );
 
-------------------------------------------------------------
-5) Data Insertion
-------------------------------------------------------------
+
+# Inserting sample records
 
 INSERT INTO route_header VALUES (102, 'trichy', 'madurai', 33, 450, 56);
 INSERT INTO route_header VALUES (103, 'madurai', 'madras', 30, 250, 50);
 INSERT INTO route_header VALUES (104, 'madurai', 'madras', 40, 270, 50);
 INSERT INTO route_header VALUES (105, 'madurai', 'madras', 25, 200, 50);
 
-------------------------------------------------------------
-6) Display Table Data
-------------------------------------------------------------
+
+# Displaying table data
 
 SELECT * FROM route_header;
-
