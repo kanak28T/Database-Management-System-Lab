@@ -22,7 +22,7 @@ DBMS_OUTPUT.PUT_LINE('Salary : ' || s_sal);
 
 EXCEPTION
 WHEN NO_DATA_FOUND THEN
-DBMS_OUTPUT.PUT_LINE('ID not found');
+DBMS_OUTPUT.PUT_LINE('ID ' || id || ' not found');
 END;
 /
 
@@ -32,11 +32,19 @@ SET SERVEROUTPUT ON;
 EXEC Get_Empname(2);
 
 # OUTPUT:
-
 Employee Name : Alice
 Salary : 3000
 
 PL/SQL procedure successfully completed.
+-----
+EXEC Get_Empname(12);
+
+# OUTPUT:
+ID 12 not found
+
+PL/SQL procedure successfully completed.
+
+
 
 ------------------------------------------------
 2) Procedure: Validate Marks (0–100)
