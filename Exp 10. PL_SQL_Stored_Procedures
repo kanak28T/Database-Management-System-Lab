@@ -1,0 +1,41 @@
+# EXP 10 – Stored Procedures
+
+# Date = 23/03/2026
+
+---
+
+# 1) Procedure: Get Employee Name and Salary
+
+CREATE OR REPLACE PROCEDURE Get_Empname(id IN NUMBER)
+AS
+s_name employees.emp_name%TYPE;
+s_sal  employees.salary%TYPE;
+s_id   employees.emp_id%TYPE;
+BEGIN
+SELECT emp_id, emp_name, salary
+INTO s_id, s_name, s_sal
+FROM employees
+WHERE emp_id = id;
+
+DBMS_OUTPUT.PUT_LINE('Employee Name : ' || s_name);
+DBMS_OUTPUT.PUT_LINE('Salary : ' || s_sal);
+
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+DBMS_OUTPUT.PUT_LINE('ID not found');
+END;
+/
+
+#  Execute Procedure
+
+SET SERVEROUTPUT ON;
+EXEC Get_Empname(2);
+
+# OUTPUT:
+
+Employee Name : Alice
+Salary : 3000
+
+PL/SQL procedure successfully completed.
+
+---
