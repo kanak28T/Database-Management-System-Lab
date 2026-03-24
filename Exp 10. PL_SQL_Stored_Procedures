@@ -63,11 +63,13 @@ END;
 SET SERVEROUTPUT ON;
 
 EXEC check_marks(85);
+
+#OUTPUT:
+Valid Marks : 85
+
 EXEC check_marks(120);
 
 #OUTPUT:
-
-Valid Marks : 85
 Error: Marks should be between 0 and 100
 
 ---
