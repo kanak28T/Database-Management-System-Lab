@@ -43,7 +43,7 @@ WHERE sub1 > 80;
 
 -------------------------------------------------------------------------------------------------------
 
-Trigger for Marks Validation
+Trigger for Marks Validation (Conditional Statement)
 
 CREATE OR REPLACE TRIGGER trig_marks
 BEFORE INSERT ON st_info
